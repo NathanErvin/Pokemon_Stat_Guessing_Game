@@ -169,7 +169,7 @@ Each Pokémon entry contains information such as:
 
 The game loads the appropriate data based on the player's selected generation.
 
-## 🔮 Possible Future Improvements
+## Possible Future Improvements
 
 Potential additions to the project include:
 
@@ -189,7 +189,7 @@ Pokémon and all related names, characters, and imagery are trademarks of Ninten
 
 This project is not affiliated with or endorsed by Nintendo, Game Freak, or The Pokémon Company.
 
-## 👨‍💻 About the Project
+## About the Project
 
 This project was developed as a way to combine an interest in Pokémon with practical experience in web development and programming.
 
