@@ -1,0 +1,328 @@
+:root {
+  --bg1: #eaf2ff;
+  --bg2: #f9f5ff;
+  --card: #ffffff;
+  --ink: #1f2937;
+  --muted: #6b7280;
+  --border: #e6eef6;
+  --accent: #2563eb;
+  --accent2: #7c3aed;
+  --success: #16a34a;
+  --danger: #dc2626;
+  --info: #2563eb;
+
+  /* Wider container */
+  --container-max: 1500px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue",
+    Arial, "Noto Sans";
+  color: var(--ink);
+
+  /* Spread the light blue further down the page */
+  background: radial-gradient(
+      1600px 1200px at 50% -20%,
+      var(--bg1) 0%,
+      var(--bg1) 45%,
+      transparent 75%
+    ),
+    radial-gradient(
+      1600px 1200px at 50% 120%,
+      var(--bg2) 0%,
+      var(--bg2) 40%,
+      transparent 75%
+    ),
+    linear-gradient(180deg, #eaf2ff 0%, #f3f7ff 50%, #fafdff 100%);
+  background-attachment: fixed, fixed, fixed;
+  min-height: 100vh;
+}
+
+.game-container {
+  width: min(96vw, var(--container-max));
+  max-width: var(--container-max);
+  margin: 32px auto; /* more air around the entire box */
+  padding: 24px; /* pull content in from the sides */
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(30, 41, 59, 0.1);
+  border: 1px solid var(--border);
+}
+
+h1 {
+  margin: 0 0 16px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Layout */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 16px;
+}
+
+/* GUARANTEED spacing above table: create a new formatting context and padding */
+.main {
+  display: flow-root; /* prevents margin collapse */
+  padding-top: 16px; /* visible top space above the table area */
+}
+
+/* When hints are disabled, collapse to one column and hide the side */
+.layout.no-hints {
+  grid-template-columns: 1fr;
+}
+.layout.no-hints .side {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .layout,
+  .layout.no-hints {
+    grid-template-columns: 1fr;
+  }
+}
+
+.controls {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr auto auto auto;
+  align-items: center;
+  margin-bottom: 14px;
+  font-size: 16px;
+}
+
+.controls label.inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+}
+
+#generation,
+#guess {
+  padding: 12px 14px;
+  border: 1px solid #ccd6e0;
+  border-radius: 10px;
+  outline: none;
+  font-size: 16px;
+}
+
+#start,
+#guess-btn {
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.18);
+}
+
+#start:hover,
+#guess-btn:hover {
+  filter: brightness(1.05);
+}
+
+.guess-area {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.info {
+  margin-bottom: 20px;
+} /* extra breathing room above the table */
+
+#feedback {
+  font-weight: 800;
+  margin: 0 0 6px 0;
+  font-size: 18px;
+  color: #111827;
+}
+
+.details {
+  display: none; /* hidden during normal play; shown on win/end */
+  background: #f3f6fb;
+  padding: 10px 12px;
+  border-radius: 10px;
+  overflow: auto;
+  margin: 0 0 8px 0;
+  font-size: 15px;
+}
+
+/* Sidebar */
+.side .hint-card {
+  position: sticky;
+  top: 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+}
+
+.hint-card__title {
+  font-weight: 900;
+  margin-bottom: 6px;
+  color: #0f172a;
+}
+
+.hint-box {
+  min-height: 56px;
+  padding: 8px 10px;
+  background: #f5fbff;
+  border: 1px dashed #a7c5ff;
+  border-radius: 10px;
+  color: #0f4c81;
+  font-weight: 700;
+  white-space: pre-wrap;
+}
+
+/* Hints list */
+.hints-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 14.5px;
+}
+.hints-list li {
+  margin: 4px 0;
+}
+.hints-list li.shiny {
+  color: #b45309;
+}
+
+/* ===== Table spacing & layout ===== */
+#comparison-table {
+  margin-top: 18px;
+} /* table-specific top gap */
+
+#comparison-table h4 {
+  margin: 10px 0 8px;
+  color: #0f172a;
+}
+
+/* horizontal breathing room */
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-inline: 12px; /* nudge table in from container edges */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  table-layout: fixed; /* respect colgroup widths */
+  min-width: 0;
+}
+
+col.name-col {
+  width: 230px;
+}
+col.stat-col {
+  width: 74px;
+}
+
+thead th,
+tbody td {
+  text-align: left;
+  padding: 10px 12px;
+  white-space: nowrap; /* keep everything on one line */
+}
+
+thead th {
+  background: linear-gradient(0deg, #eef4ff, #f4f7ff);
+  border-bottom: 1px solid var(--border);
+  font-weight: 900;
+  font-size: 15px;
+  color: #0f172a;
+}
+
+tbody td {
+  border-top: 1px solid #eef3f9;
+  font-size: 15px;
+}
+
+tbody tr:nth-child(even) {
+  background: #fbfdff;
+}
+
+/* Bold all stat cells */
+td.stat-cell {
+  font-weight: 800;
+}
+
+/* Name cell */
+td.name-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+}
+
+td.name-cell span {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+img.pkmn-thumb {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  image-rendering: auto;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.06));
+}
+
+/* optional: quick visual cues */
+td[data-indicator="up"] {
+  color: #2563eb;
+} /* need higher */
+td[data-indicator="down"] {
+  color: #dc2626;
+} /* need lower */
+td[data-indicator="eq"] {
+  color: #16a34a;
+} /* exact */
+
+/* --- FORCE VISIBLE SPACE ABOVE THE TABLE --- */
+
+/* Create a non-collapsing spacer above the table’s contents */
+#comparison-table {
+  position: relative;
+  margin-top: 0 !important; /* neutralize any conflicting margins */
+}
+
+/* Spacer that cannot collapse (lives inside the element) */
+#comparison-table::before {
+  content: "";
+  display: block;
+  height: 24px; /* adjust to taste */
+}
+
+/* Make sure the heading inside doesn't yank the space back via margin collapse */
+#comparison-table h4 {
+  margin-top: 0 !important;
+}
+
+/* Extra belt-and-suspenders: parent padding can't collapse */
+.main {
+  display: flow-root; /* new formatting context */
+  padding-top: 16px !important;
+}

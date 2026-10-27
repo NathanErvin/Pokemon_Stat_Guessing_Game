@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokémon Guessing Game</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <div class="game-container">
+      <h1>Pokémon Guessing Game</h1>
+
+      <div class="layout">
+        <!-- Main column -->
+        <div class="main">
+          <!-- Game Setup -->
+          <div class="controls">
+            <label for="generation">Generation:</label>
+            <select id="generation">
+              <option value="">-- Select a List --</option>
+              <option>All</option>
+              <option>Gen 1</option>
+              <option>Gen 2</option>
+              <option>Gen 3</option>
+              <option>Gen 4</option>
+              <option>Gen 5</option>
+              <option>Gen 6</option>
+              <option>Gen 7</option>
+              <option>Gen 8</option>
+              <option>Gen 9</option>
+              <option>Mega</option>
+            </select>
+
+            <label class="inline">
+              <input type="checkbox" id="toggle-hints" checked />
+              Enable hints
+            </label>
+
+            <button id="start">Start New Game</button>
+          </div>
+
+          <!-- Input -->
+          <div class="guess-area">
+            <input id="guess" type="text" placeholder="Type a Pokémon name…" />
+            <button id="guess-btn">Guess</button>
+          </div>
+
+          <!-- Feedback -->
+          <div class="info">
+            <p id="feedback"></p>
+            <!-- Only used on win / game over -->
+            <pre id="details" class="details"></pre>
+          </div>
+
+          <!-- Persistent Guess List -->
+          <div id="comparison-table" style="display: none">
+            <h4>Guessed Pokémon</h4>
+
+            <!-- horizontal scroll wrapper so we can force no-wrap -->
+            <div class="table-scroll">
+              <table>
+                <colgroup>
+                  <col class="name-col" />
+                  <col class="stat-col" />
+                  <col class="stat-col" />
+                  <col class="stat-col" />
+                  <col class="stat-col" />
+                  <col class="stat-col" />
+                  <col class="stat-col" />
+                  <col class="stat-col" />
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th>Pokémon</th>
+                    <th>Pokedex #</th>
+                    <th>HP</th>
+                    <th>Attack</th>
+                    <th>Defense</th>
+                    <th>Sp. Atk</th>
+                    <th>Sp. Def</th>
+                    <th>Speed</th>
+                  </tr>
+                </thead>
+                <tbody id="guesses"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="side">
+          <div class="hint-card">
+            <div class="hint-card__title">Hints</div>
+            <div class="hint-box">
+              <ul id="hints-list" class="hints-list"></ul>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>
